@@ -2,6 +2,15 @@
   "name": "Heroku aiohttp template",
   "description": "A barebones aiohttp app using gunicorn",
   "repository": "https://github.com/sseg/heroku-aiohttp-template",
-  "keywords": ["python", "aiohttp", "asyncio"]
+  "keywords": ["python", "aiohttp", "asyncio"],
+  "buildpacks": [
+    {"url": "https://github.com/heroku/heroku-buildpack-multi"}
+  ],
+  "env": {
+    "ROOT_LOG_LEVEL": {
+      "description": "Application log level. One of (`CRITICAL`, `ERROR`, `WARNING`, `INFO`, `DEBUG`)",
+      "value": "INFO"
+    }
+  }
 }
 

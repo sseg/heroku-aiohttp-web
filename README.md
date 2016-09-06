@@ -9,6 +9,12 @@ A project starter template for deploying an [aiohttp](https://github.com/KeepSaf
 Deploy
 ------
 
+Use this button: 
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://dashboard.heroku.com/new?button-url=https%3A%2F%2Fgithub.com/sseg/heroku-aiohttp-template&template=https%3A%2F%2Fgithub.com/sseg/heroku-aiohttp-template)
+
+Or alternatively:
+
     $ git clone git@github.com:sseg/heroku-aiohttp-template.git
     $ cd heroku-aiohttp-template
     $ heroku create
