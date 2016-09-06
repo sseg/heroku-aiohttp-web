@@ -28,3 +28,10 @@ var/
 # dotenv
 .env
 
+# node
+node_modules/
+
+# compiled assets
+public/
+manifest.json
+

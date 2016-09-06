@@ -1,0 +1,26 @@
+{
+  "name": "heroku-aiohttp-template",
+  "author": "Steven Seguin",
+  "license": "MIT",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sseg/heroku-aiohttp-template"
+  },
+  "scripts": {
+    "clean": "rm -rf ./public/*",
+    "build:dev": "brunch build",
+    "build:prod": "brunch build --production",
+    "postinstall": "npm run clean && npm run build:prod"
+  },
+  "dependencies": {
+    "auto-reload-brunch": "^2.0.0",
+    "babel-brunch": "^6.0.6",
+    "brunch": "^2.0.0",
+    "clean-css-brunch": "^2.0.0",
+    "css-brunch": "^2.6.1",
+    "digest-brunch": "^1.5.1",
+    "javascript-brunch": "^2.0.0",
+    "uglify-js-brunch": "^2.0.0"
+  }
+}

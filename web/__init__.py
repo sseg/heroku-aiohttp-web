@@ -6,7 +6,11 @@ from types import MappingProxyType
 
 from aiohttp import web
 
+from web.utils.assets import AssetManager
 from web.utils.settings import get_config
+
+
+here = os.path.abspath(__file__)
 
 
 def build_app(settings_path, loop=None):
@@ -30,6 +34,11 @@ def build_app(settings_path, loop=None):
     )
 
     application.settings = MappingProxyType(settings)
+
+    static_dir = os.path.join(os.path.dirname(here), 'public')
+    application.assets = AssetManager(application, prefix='/static', directory=static_dir)
+    manifest_file = os.path.join(os.path.dirname(here), 'manifest.json')
+    application.assets.load_manifest(manifest_file)
 
     return application
 
