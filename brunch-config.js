@@ -19,9 +19,9 @@ module.exports = {
     digest: {manifest: 'manifest.json', alwaysRun: true}
   },
 
-  hooks: {
-    onCompile: (generatedFiles, changedAssets) => {
-      console.log(generatedFiles.map(f => f.path));
+  modules: {
+    autoRequire: {
+      'js/app.js': ['assets/js/index.js']
     }
   }
 };

@@ -4,8 +4,11 @@
 #
 #    pip-compile --output-file requirements.txt requirements.in
 #
+aiohttp-jinja2==0.8.0
 aiohttp==0.22.5
 chardet==2.3.0            # via aiohttp
 gunicorn==19.6.0
+jinja2==2.8               # via aiohttp-jinja2
+MarkupSafe==0.23          # via jinja2
 multidict==1.2.2          # via aiohttp
 pyyaml==3.12
