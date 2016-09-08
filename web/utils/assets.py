@@ -2,14 +2,14 @@ from json import loads
 
 
 class AssetManager:
-    def __init__(self, app, prefix, directory):
-        self.app_router = app.router
+    def __init__(self, app, prefix, directory=None):
+        self._manifest = None
         if not prefix.endswith('/'):
             prefix += '/'
         self.prefix = prefix
-        self.dir = directory
-        self._manifest = None
-        self.app_router.add_static(prefix, directory)
+
+        if directory is not None:
+            app.router.add_static(self.prefix, directory)
 
     def load_manifest(self, path):
         with open(path) as fp:

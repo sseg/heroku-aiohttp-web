@@ -16,13 +16,18 @@ module.exports = {
   },
 
   plugins: {
-    digest: {manifest: 'manifest.json', alwaysRun: true}
+    digest: {manifest: 'manifest.json'}
   },
 
   modules: {
     autoRequire: {
       'js/app.js': ['assets/js/index.js']
     }
+  },
+
+  server: {
+    hostname: '0.0.0.0',
+    port: 9484 
   }
 };
 

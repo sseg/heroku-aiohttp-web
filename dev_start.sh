@@ -1,5 +1,5 @@
 #! /bin/bash
 
-npm run build:dev
-PORT=5000 ROOT_LOG_LEVEL=DEBUG gunicorn web:main --config config/gunicorn.conf --reload
+brunch w -s -d &
+PORT=5000 ENV=DEVELOPMENT gunicorn web:main --config config/gunicorn.conf --reload
 

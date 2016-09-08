@@ -11,7 +11,7 @@ logging:
       formatter: detail
       stream: ext://sys.stdout
   root:
-    level: $ROOT_LOG_LEVEL
+    level: DEBUG 
     handlers:
       - console
   loggers:
@@ -20,9 +20,9 @@ logging:
     gunicorn: {}
     web: {}
 
-asyncio_debug_enabled: false 
+asyncio_debug_enabled: true
 assets:
-  manifest: "manifest.json" 
-  base_path: "/static"
-  use_proxy: false
+  manifest: "manifest.json.dev" 
+  base_path: "http://0.0.0.0:9484"
+  use_proxy: true
 

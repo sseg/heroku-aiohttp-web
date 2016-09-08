@@ -13,7 +13,7 @@ from web.utils.assets import AssetManager
 from web.utils.settings import get_config
 
 
-here = os.path.abspath(__file__)
+here_folder = os.path.dirname(os.path.abspath(__file__))
 log = logging.getLogger(__name__)
 
 
@@ -40,9 +40,12 @@ def build_app(settings_path, loop=None):
     application.settings = MappingProxyType(settings)
 
     # static assets
-    static_dir = os.path.join(os.path.dirname(here), 'public')
-    application.assets = AssetManager(application, prefix='/static', directory=static_dir)
-    manifest_file = os.path.join(os.path.dirname(here), 'manifest.json')
+    if settings['assets']['use_proxy']:
+        application.assets = AssetManager(application, prefix=settings['assets']['base_path'])
+    else:
+        static_dir = os.path.join(os.path.dirname(here_folder), 'public')
+        application.assets = AssetManager(application, prefix=settings['assets']['base_path'], directory=static_dir)
+    manifest_file = os.path.join(os.path.dirname(here_folder), settings['assets']['manifest'])
     application.assets.load_manifest(manifest_file)
 
     # templates
@@ -69,7 +72,9 @@ def build_app(settings_path, loop=None):
     return application
 
 
-here = os.path.abspath(os.path.dirname(__file__))
-conf_file = os.path.join(here, '../config/web.yml')
+if os.environ.get('ENV') == 'DEVELOPMENT':
+    conf_file = os.path.join(here_folder, '../config/dev.yml')
+else:
+    conf_file = os.path.join(here_folder, '../config/web.yml')
 main = build_app(settings_path=conf_file)
 
