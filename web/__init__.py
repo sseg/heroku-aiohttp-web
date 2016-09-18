@@ -44,7 +44,11 @@ def build_app(settings_path, loop=None):
         application.assets = AssetManager(application, prefix=settings['assets']['base_path'])
     else:
         static_dir = os.path.join(os.path.dirname(here_folder), 'public')
-        application.assets = AssetManager(application, prefix=settings['assets']['base_path'], directory=static_dir)
+        application.assets = AssetManager(
+            application,
+            prefix=settings['assets']['base_path'],
+            directory=static_dir
+        )
     manifest_file = os.path.join(os.path.dirname(here_folder), settings['assets']['manifest'])
     application.assets.load_manifest(manifest_file)
 
@@ -77,4 +81,3 @@ if os.environ.get('ENV') == 'DEVELOPMENT':
 else:
     conf_file = os.path.join(here_folder, '../config/web.yml')
 main = build_app(settings_path=conf_file)
-

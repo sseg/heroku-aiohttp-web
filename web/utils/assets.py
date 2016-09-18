@@ -24,4 +24,3 @@ class AssetManager:
 
     def get_path(self, key):
         return self.prefix + self.manifest[key]
-

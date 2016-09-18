@@ -1,4 +1,4 @@
-from os.path import expandvars, join, dirname
+from os.path import expandvars
 import yaml
 
 
@@ -20,4 +20,3 @@ def get_config(filename):
     with open(filename) as fp:
         base = yaml.safe_load(fp.read())
     return expand_nested_vars(base)
-

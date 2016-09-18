@@ -19,7 +19,7 @@ async def index(request):
 
 
 async def tick(request):
-    if not 'text/event-stream' in request.headers.getall('ACCEPT', []):
+    if 'text/event-stream' not in request.headers.getall('ACCEPT', []):
         raise HTTPNotAcceptable(reason="'text/event-stream' not found in Accept headers.")
 
     resp = StreamResponse(
@@ -61,4 +61,3 @@ def build_message(data, id=None, event=None):
         buffer.write('data: {0}\r\n'.format(chunk).encode('utf-8'))
     buffer.write(b'\r\n')
     return buffer.getvalue()
-
