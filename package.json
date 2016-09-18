@@ -8,7 +8,7 @@
     "url": "https://github.com/sseg/heroku-aiohttp-template"
   },
   "scripts": {
-    "clean": "rm -rf ./public/* && rm ./manifest.json",
+    "clean": "rm -rf ./public/* && touch ./manifest.json && rm ./manifest.json",
     "build:dev": "brunch build --debug",
     "build:prod": "brunch build --production",
     "postinstall": "npm run clean && npm run build:prod"
