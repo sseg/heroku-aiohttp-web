@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{{ title }}</title>
+        <link rel="stylesheet" type="text/css" href="{{ bootstrap_css_url }}" />
+        <link rel="stylesheet"
+              type="text/css"
+              href="{{ asset('css/app.css') }}" />
+
+    </head>
+
+    <body>
+
+        {% block content %}{% endblock %}
+
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="{{ jquery_url }}"></script>
+
+        <!-- Bootstrap JS -->
+        <script type="text/javascript" src="{{ bootstrap_js_url }}"></script>
+
+        <!-- Application JS -->
+        <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
+
+    </body>
+
+</html>

@@ -10,6 +10,7 @@ async-timeout==1.0.0      # via aiohttp
 chardet==2.3.0            # via aiohttp
 gunicorn==19.6.0
 jinja2==2.8               # via aiohttp-jinja2
+markdown==2.6.6
 MarkupSafe==0.23          # via jinja2
 multidict==2.1.0          # via aiohttp
 pyyaml==3.12

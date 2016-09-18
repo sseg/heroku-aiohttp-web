@@ -1,5 +1,39 @@
-@font-stack: Tahoma, Geneva, Verdana, sans-serif;
+// VARIABLES
+
+@font-stack: "Segoe UI", Helvetica Neue, Tahoma, Arial, sans-serif;
+
+@primary-light: #4A8AB3;
+@secondary-light: #FFEBB1;
+@tertiary-medium: #FAA53B;
+@white: #FFF;
+
+
+// STYLES
 
 body {
-    font: 100% @font-stack;
+    font: medium @font-stack;
+    line-height: 1.5;
+
+    .navbar {
+        min-height: 80px;
+
+        a, .github-corner {
+            fill: @tertiary-medium;
+            color: @white;
+        }
+    }
+
+    .jumbotron {
+        background-color: @primary-light;
+        color: @white;
+    }
+
+    .tick-view {
+        font-size: xx-large;
+    }
+
+    .alert {
+        background-color: @secondary-light;
+        font-size: smaller;
+    }
 }

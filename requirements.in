@@ -1,5 +1,5 @@
 aiohttp
 aiohttp_jinja2
 gunicorn
+markdown
 pyyaml
-
