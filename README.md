@@ -52,6 +52,7 @@ Then run the project with development asset server:
 
 Or run the app using compiled assets with the Procfile:
 
+    $ npm run clean && npm run build:prod
     $ heroku local
 
 Local config values are defined in the `.env` file, and invoked when you start the application using `heroku local`.

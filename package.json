@@ -8,7 +8,7 @@
     "url": "https://github.com/sseg/heroku-aiohttp-template"
   },
   "scripts": {
-    "clean": "rm -rf ./public/*",
+    "clean": "rm -rf ./public/* && rm ./manifest.json",
     "build:dev": "brunch build --debug",
     "build:prod": "brunch build --production",
     "postinstall": "npm run clean && npm run build:prod"
@@ -21,7 +21,7 @@
     "css-brunch": "^2.6.1",
     "digest-brunch": "^1.5.1",
     "javascript-brunch": "^2.0.0",
-    "sass-brunch": "^2.6.3",
+    "less-brunch": "^2.7.1",
     "uglify-js-brunch": "^2.0.0"
   }
 }
