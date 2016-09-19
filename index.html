@@ -22,12 +22,14 @@
       <h1>
 <a id="heroku-aiohttp-web-template" class="anchor" href="#heroku-aiohttp-web-template" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Heroku aiohttp Web Template</h1>
 
-<p>!!! THIS IS A WORK IN PROGRESS !!! TREAD CAREFULLY !!!</p>
+<p>An opinionated project template for deploying an <a href="https://github.com/KeepSafe/aiohttp/">aiohttp</a>
+web app to Heroku, designed to encourage the rapid development and deployment of real-time
+front-end features.</p>
 
-<p>An opinionated project template for deploying an <a href="https://github.com/KeepSafe/aiohttp/">aiohttp</a> web app to Heroku.</p>
+<p><strong>NB:</strong> <em>This remains a work-in-progress. Please tread carefully.</em></p>
 
 <h2>
-<a id="deploy" class="anchor" href="#deploy" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Deploy</h2>
+<a id="launch-the-app" class="anchor" href="#launch-the-app" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Launch the app</h2>
 
 <p>Use this button:</p>
 
@@ -35,27 +37,21 @@
 
 <p>Or alternatively:</p>
 
-<pre><code>$ git clone git@github.com:sseg/heroku-aiohttp-template.git
-$ cd heroku-aiohttp-template
+<pre><code>$ git clone git@github.com:sseg/heroku-aiohttp-web.git
+$ cd heroku-aiohttp-web
 $ heroku create
 $ heroku buildpacks:set https://github.com/heroku/heroku-buildpack-multi.git
 $ heroku config:set ROOT_LOG_LEVEL=INFO
 $ git push heroku master
 </code></pre>
 
-<h3>
-<a id="static-files" class="anchor" href="#static-files" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Static Files</h3>
-
-<p>TODO: write a warning about static file delivery</p>
-
 <h2>
-<a id="develop-locally" class="anchor" href="#develop-locally" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Develop Locally</h2>
+<a id="develop-locally" class="anchor" href="#develop-locally" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Develop locally</h2>
 
 <p>Make sure you have:</p>
 
 <ul>
-<li>a Python 3.5+ virtual environment <a href="https://docs.python.org/3/library/venv.html">venv</a>
-</li>
+<li>a Python 3.5+ virtual environment (<a href="https://docs.python.org/3/library/venv.html">venv</a>)</li>
 <li>
 <a href="https://nodejs.org/en/">node</a> version 4.5+ with <code>npm</code>
 </li>
@@ -83,7 +79,79 @@ $ ./dev_start.sh
 $ heroku local
 </code></pre>
 
-<p>Local config values are defined in the <code>.env</code> file, and invoked when you start the application using <code>heroku local</code>.</p>
+<p>Local config values are defined in the <code>.env</code> file, and invoked when you start
+the application using <code>heroku local</code>.</p>
+
+<h3>
+<a id="run-the-tests" class="anchor" href="#run-the-tests" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Run the tests</h3>
+
+<p>There are no tests yet... but stay tuned!</p>
+
+<h2>
+<a id="application-structure" class="anchor" href="#application-structure" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Application structure</h2>
+
+<h4>
+<a id="handlers" class="anchor" href="#handlers" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Handlers</h4>
+
+<p><em>aiohttp</em> dispatches requests to handlers which can be either coroutines or functions
+that accept a <a href="http://aiohttp.readthedocs.io/en/stable/web_reference.html#aiohttp.web.Request">Request</a> and return a <a href="http://aiohttp.readthedocs.io/en/stable/web_reference.html#aiohttp.web.Response">Response</a>. A base class
+<a href="http://aiohttp.readthedocs.io/en/stable/web_reference.html#aiohttp.web.View">aiohttp.web.View</a>
+is also provided to help organize handlers into classes, which provides the convenience of
+automatically creating an OPTIONS method.  </p>
+
+<h4>
+<a id="templates" class="anchor" href="#templates" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Templates</h4>
+
+<p>This app uses <a href="http://jinja.pocoo.org/">jinja2</a> templates to construct its index
+view. Template files are kept in the <em>web/templates</em> directory and compiled by
+the <a href="https://github.com/aio-libs/aiohttp_jinja2">aiohttp_jinja2</a> renderer. You might
+prefer <a href="https://github.com/aio-libs/aiohttp_mako">mako</a> for templates, or
+<a href="https://wiki.python.org/moin/Templating">something</a>
+<a href="https://docs.python.org/3/library/string.html#template-strings">else</a>—connecting
+a new renderer to your handlers is easy.</p>
+
+<h4>
+<a id="static-files" class="anchor" href="#static-files" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Static files</h4>
+
+<p>Javascript and CSS source files are defined in the <em>assets/js</em>
+and <em>assets/css</em> directories, respectively. These assets are compiled by
+<a href="http://brunch.io/">brunch</a> to the top-level <em>public</em> directory (configuration
+in <em>brunch-config.js</em>). You might want to add React or Elm compilation which is
+as simple as installing a new <a href="http://brunch.io/plugins">brunch plugin</a>. In
+development you can run a file watcher with an HTTP + pushstate server to reload
+your page on file changes (this is started with the <em>dev_start.sh</em> script).</p>
+
+<h5>
+<a id="production-asset-delivery" class="anchor" href="#production-asset-delivery" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Production asset delivery</h5>
+
+<p>In production the assets are compiled once (triggered during Heroku deployment by
+<em>package.json</em>'s postinstall directive). Based on the Python configuration the compiled
+assets are served through <em>aiohttp</em> (with the piping handled by
+<em>web.utils.assets.AssetManager</em>).</p>
+
+<p><strong>NB:</strong> the <em>aiohttp</em> server is not designed to serve static files, and allowing
+it to serve production asset traffic will detrimentally affect your application's
+performance. You will either want to expose this application behind a content
+delivery proxy (e.g. <a href="https://www.cloudflare.com/">Cloudflare</a>) or reconfigure it
+to serve assets from a separate assets server. The <em>brunch</em> asset compiler is
+configured here to append checksum digests to asset filenames which facilitates
+cache eviction in these scenarios.</p>
+
+<h4>
+<a id="configuration" class="anchor" href="#configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Configuration</h4>
+
+<p>This application uses a configuration base file, <em>config/web.yml</em>, which defines
+defaults and wraps environment variables. New configuration settings should be added
+to this file and refer to new environment variables. For more information on Heroku
+app configuration see the <a href="https://devcenter.heroku.com/articles/config-vars">devcenter</a>
+docs.</p>
+
+<h2>
+<a id="contributions" class="anchor" href="#contributions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributions</h2>
+
+<p>Contributions are welcome! Bugs, feature requests, and unanswered questions can be
+reported in the Github issue tracker <a href="https://github.com/sseg/heroku-aiohttp-web/issues">here</a>.
+Fixes, enhancements, and suggestions are also gratefully accepted in pull requests.</p>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/sseg/heroku-aiohttp-web">Heroku aiohttp Web Template</a> is maintained by <a href="https://github.com/sseg">sseg</a>.</span>
