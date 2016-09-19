@@ -16,7 +16,7 @@ Use this button:
 
 Or alternatively:
 
-    $ git clone git@github.com:sseg/heroku-aiohttp-web.git
+    $ git clone https://github.com/sseg/heroku-aiohttp-web.git
     $ cd heroku-aiohttp-web
     $ heroku create
     $ heroku buildpacks:set https://github.com/heroku/heroku-buildpack-multi.git
