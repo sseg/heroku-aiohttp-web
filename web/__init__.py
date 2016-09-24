@@ -2,7 +2,6 @@ import asyncio
 import logging
 import logging.config
 import os
-from types import MappingProxyType
 
 from aiohttp import web
 import aiohttp_jinja2
@@ -37,7 +36,7 @@ def build_app(settings_path, loop=None):
         middlewares=middlewares
     )
 
-    application.settings = MappingProxyType(settings)
+    application.settings = settings
 
     # static assets
     if settings['assets']['use_proxy']:
@@ -77,7 +76,7 @@ def build_app(settings_path, loop=None):
 
 
 if os.environ.get('ENV') == 'DEVELOPMENT':
-    conf_file = os.path.join(here_folder, '../config/dev.yml')
+    conf_file = os.path.join(here_folder, '../config/dev.conf')
 else:
-    conf_file = os.path.join(here_folder, '../config/web.yml')
+    conf_file = os.path.join(here_folder, '../config/web.conf')
 main = build_app(settings_path=conf_file)
