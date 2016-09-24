@@ -1,22 +1,29 @@
-from os.path import expandvars
-import yaml
-
-
-def expand_nested_vars(mapping):
-    new = {}
-    for k, v in mapping.items():
-        if hasattr(v, 'items'):
-            new[k] = expand_nested_vars(v)
-        elif isinstance(v, str):
-            new[k] = expandvars(v)
-        elif hasattr(v, '__iter__'):
-            new[k] = type(v)(expandvars(i) if isinstance(i, str) else i for i in v)
-        else:
-            new[k] = v
-    return new
+from tempfile import NamedTemporaryFile
+from types import MappingProxyType
+import importlib.util
+import os.path
+import shutil
+import sys
 
 
 def get_config(filename):
-    with open(filename) as fp:
-        base = yaml.safe_load(fp.read())
-    return expand_nested_vars(base)
+    try:
+        config_dir = os.path.dirname(filename)
+
+        with NamedTemporaryFile(suffix='.py', dir=config_dir, delete=True) as tf:
+            shutil.copyfile(filename, tf.name)
+            spec = importlib.util.spec_from_file_location('_config.settings', tf.name)
+            module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(module)
+
+        if hasattr(module, '__all__'):
+            settings = {k: getattr(module, k) for k in module.__all__}
+        else:
+            settings = {k: v for k, v in vars(module).items() if not k.startswith('_')}
+
+        return MappingProxyType(settings)
+
+    except Exception:
+        sys.stderr.write('Failed to read config file: %s' % filename)
+        sys.stderr.flush()
+        raise
