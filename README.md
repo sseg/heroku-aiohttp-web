@@ -5,7 +5,8 @@ An opinionated project template for deploying an [aiohttp](https://github.com/Ke
 web app to Heroku, designed to encourage the rapid development and deployment of real-time
 front-end features.
 
-**NB:** _This remains a work-in-progress. Please tread carefully._
+**NB:** _This template currently tracks an out-of-date version of aiohttp. Please
+tread carefully. Contributions are welcome to bring it up-to-date._
 
 Launch the app
 --------------
@@ -67,7 +68,7 @@ _aiohttp_ dispatches requests to handlers which can be either coroutines or func
 that accept a [Request](http://aiohttp.readthedocs.io/en/stable/web_reference.html#aiohttp.web.Request) and return a [Response](http://aiohttp.readthedocs.io/en/stable/web_reference.html#aiohttp.web.Response). A base class
 [aiohttp.web.View](http://aiohttp.readthedocs.io/en/stable/web_reference.html#aiohttp.web.View)
 is also provided to help organize handlers into classes, which provides the convenience of
-automatically creating an OPTIONS method.  
+automatically creating an OPTIONS method.
 
 #### Templates
 
